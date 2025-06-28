@@ -43,24 +43,30 @@ def caminosR(lab, f,c):
 def caminosPD(lab, mem, f,c):
     global op
     op += 1
-    if f == len(lab)-1 and c == len(lab[0])-1 :
+    if mem[f][c] != -1:
+        return mem[f][c]
+    elif f == len(lab)-1 and c == len(lab[0])-1 :
         if lab[f][c] == 1:
-            return 1
+            mem[f][c] = 1
+            return mem[f][c]
         else:
             return 0
     elif c == len(lab[0])-1:
         if lab[f][c] == 1:
-            return caminosPD(lab, f+1,c)
+            mem[f][c] = caminosPD(lab, mem, f+1,c)
+            return mem[f][c]
         else:
             return 0
     elif f == len(lab)-1:
         if lab[f][c] == 1:
-            return caminosPD(lab, f,c+1)
+            mem[f][c] = caminosPD(lab, mem, f,c+1)
+            return mem[f][c]
         else:
             return 0
     else:
         if lab[f][c] == 1:
-            return caminosPD(lab, f,c+1)+caminosPD(lab, f+1,c)
+            mem[f][c] = caminosPD(lab, mem, f,c+1)+caminosPD(lab, mem, f+1,c)
+            return mem[f][c]
         else:
             return 0
         
